@@ -1725,11 +1725,12 @@
                     top = 0, dist = 5, //set distance between input element and result list
                     //the actual top coordinate of result list
                     listBottom = screenTop + inputHeight + listHeight + dist,
+                    listTop = screenTop+listHeight+dist,
                     hasOverflow = docHeight > viewHeight;
 
                 if ((screenTop - screenScrollTop - dist > listHeight) &&
                     (hasOverflow && listBottom > (viewHeight + screenScrollTop)) ||
-                    (!hasOverflow && listBottom > viewHeight)) {
+                    (!hasOverflow && listBottom > viewHeight && screenTop >= listTop)) {
                     //open up
                     top = offset.top - listHeight - dist;
                     el.result_area.removeClass('shadowUp shadowDown').addClass('shadowUp');
