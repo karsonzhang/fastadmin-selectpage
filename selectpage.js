@@ -2018,10 +2018,10 @@
             self.elem.combo_input.css('width', width).removeAttr('placeholder');
         };
         if (self.elem.element_box.find('li.selected_tag').length === 0) {
+            if (!inputLi.hasClass('full_width')) inputLi.addClass('full_width');
             if (self.elem.combo_input.attr('placeholder_bak')) {
-                if (!inputLi.hasClass('full_width')) inputLi.addClass('full_width');
                 self.elem.combo_input.attr('placeholder', self.elem.combo_input.attr('placeholder_bak')).removeAttr('style');
-            } else setDefaultSize(self, inputLi);
+            }
         } else setDefaultSize(self, inputLi);
     };
 
