@@ -333,6 +333,17 @@ ul.sp_element_box li.selected_tag {
     line-height: 22px;
     -webkit-transition: all .5s cubic-bezier(.175, .885, .32, 1);
     transition: all .5s cubic-bezier(.175, .885, .32, 1);
+    position: relative;
+    padding-right: 20px;
+    overflow: hidden;
+}
+
+ul.sp_element_box li.selected_tag .tag_close {
+    position: absolute;
+    top: 0;
+    right: 2px;
+    width: 15px;
+    height: 15px;
 }
 
 ul.sp_element_box li.selected_tag:hover {
