@@ -1977,7 +1977,7 @@
                 index = $.inArray(key.toString(), keyarr);
             if (index != -1) {
                 keyarr.splice(index, 1);
-                self.elem.hidden.val(keyarr.toString());
+                self.elem.hidden.val(keyarr.toString()).trigger("change");
             }
         }
         $(item).remove();
@@ -1998,7 +1998,7 @@
                 if ($.type(v) !== 'undefined') result.push(v);
             });
             if (result.length) {
-                self.elem.hidden.val(result.join(','));
+                self.elem.hidden.val(result.join(',')).trigger("change");
             }
         }
     };

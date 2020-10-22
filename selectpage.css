@@ -312,6 +312,7 @@ ul.sp_element_box > li {
     float: left;
     position: relative;
     box-sizing: content-box;
+    z-index: 1;
 }
 
 ul.sp_element_box li.full_width {
