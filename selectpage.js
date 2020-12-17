@@ -2,7 +2,7 @@
  * @summary     SelectPage
  * @desc        Simple and powerful selection plugin
  * @file        selectpage.js
- * @version     2.19
+ * @version     2.20
  * @author      TerryZeng
  * @contact     https://terryz.github.io/
  * @license     MIT License
@@ -103,6 +103,11 @@
          * @default 'AND'
          */
         andOr: 'OR',
+        /**
+         * Used to separate search content
+         * @see SelectPage.prototype.suggest()
+         */
+        separator: ',',
         /**
          * Result sort type
          * @type array|boolean - if not set, will default used showField field
@@ -1172,7 +1177,7 @@
             if (val && val === self.prop.selected_text) q_word = '';
             else q_word = val;
         }
-        q_word = q_word.split(/[\s　]+/);
+        q_word = q_word.split(self.option.separator);
 
         //Before show up result list callback
         if (self.option.eOpen && $.isFunction(self.option.eOpen))
@@ -1208,7 +1213,7 @@
         if (!p.eAjaxSuccess || !$.isFunction(p.eAjaxSuccess)) self.hideResults(self);
         var _paramsFunc = p.params, _params = {}, searchKey = p.searchField;
         //when have new query keyword, then reset page number to 1.
-        if (q_word.length && q_word[0] && q_word[0] !== self.prop.prev_value) which_page_num = 1;
+        if (q_word.length && q_word[0] && q_word.join(self.option.separator) !== self.prop.prev_value) which_page_num = 1;
         var _orgParams = {
             q_word: q_word,
             pageNumber: which_page_num,
@@ -1221,6 +1226,7 @@
             searchField: self.option.searchField
         };
         if (p.orderBy !== false) _orgParams.orderBy = p.orderBy;
+        // 这个应该是历史遗留了，没仔细追逻辑，先留着。
         _orgParams[searchKey] = q_word[0];
 
         if (_paramsFunc) {
