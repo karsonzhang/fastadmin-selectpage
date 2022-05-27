@@ -581,6 +581,9 @@
             id: input_id + namePrefix
         });
 
+        elem.hidden.attr("data-rule", elem.combo_input.data("rule") || '');
+        elem.combo_input.attr("novalidate", "novalidate");
+
         // 2. DOM element put
         elem.container.append(elem.hidden);
         if (p.dropButton) {
