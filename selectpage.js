@@ -534,7 +534,7 @@
         var elem = {}, p = this.option, css = this.css_class, msg = this.message, input = $(combo_input);
         var cssWidth = input.css("width");
         var orgWidth = input.outerWidth();
-        if (cssWidth.indexOf("%") > -1 || input.parent().size() > 0 && input.parent().width() == orgWidth) {
+        if (cssWidth.indexOf("%") > -1 || input.parent().length > 0 && input.parent().width() == orgWidth) {
             orgWidth = "100%";
         } else {
             // fix input width in hidden situation
