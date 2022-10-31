@@ -351,7 +351,7 @@
                     select_ng: 'Attention : Please choose from among the list.',
                     select_ok: 'OK : Correctly selected.',
                     not_found: 'not found',
-                    ajax_error: 'An error occurred while connecting to server.',
+                    ajax_error: 'An error occurred while loading data.',
                     clear: 'Clear content',
                     select_all: 'Select current page',
                     unselect_all: 'Clear current page',
@@ -383,7 +383,7 @@
                     select_ng: '请注意：请从列表中选择.',
                     select_ok: 'OK : 已经选择.',
                     not_found: '无查询结果',
-                    ajax_error: '连接到服务器时发生错误！',
+                    ajax_error: '加载数据时发生了错误！',
                     clear: '清除内容',
                     select_all: '选择当前页项目',
                     unselect_all: '取消选择当前页项目',
@@ -990,7 +990,7 @@
      * @param {string} errorThrown
      */
     SelectPage.prototype.ajaxErrorNotify = function (self, errorThrown) {
-        self.showMessage(self.message.ajax_error);
+        self.showMessage(self, self.message.ajax_error);
     };
 
     /**
@@ -1004,7 +1004,7 @@
         self.elem.results.empty().append(msgLi).show();
         self.calcResultsSize(self);
         self.setOpenStatus(self, true);
-        self.elem.control.hide();
+        if(self.elem.control) self.elem.control.hide();
         if (self.option.pagination) self.elem.navi.hide();
     };
 
@@ -2189,6 +2189,29 @@
         return str;
     }
 
+    /**
+     * Get selected item raw data
+     * @returns {any[]}
+     */
+    function GetSelectedData () {
+        var results = [];
+        this.each(function () {
+            var $this = getPlugin(this), data = $this.data(SelectPage.dataKey);
+            if (data) {
+                if (data.option.multiple) {
+                    data.elem.element_box.find('li.selected_tag').each(function (i, tag) {
+                        results.push($(tag).data('dataObj'));
+                    });
+                } else {
+                    var selected = data.elem.combo_input.data('dataObj');
+                    if (selected) results.push(selected);
+                }
+            }
+        });
+
+        return results;
+    }
+
     var old = $.fn.selectPage;
 
     $.fn.selectPage = Plugin;
@@ -2198,6 +2221,7 @@
     $.fn.selectPageData = ModifyDataSource;
     $.fn.selectPageDisabled = PluginDisabled;
     $.fn.selectPageText = GetInputText;
+    $.fn.selectPageSelectedData = GetSelectedData;
 
     // SelectPage no conflict
     // =================
